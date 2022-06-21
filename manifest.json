@@ -1,0 +1,52 @@
+{
+    "name" : "Exsplit",
+    "short_name": "Exsplit",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color" : "#047302",
+    "theme_color" :"#047302" ,
+    "orientation": "portrait-primary",
+    "icons":
+    [
+        {
+            "src" : "img/icons/ExplitLogo-72x72-01.png",
+            "type" : "image/png",
+            "sizes" : "72x72"
+        },
+        {
+            "src" : "img/icons/ExplitLogo-96x96-01.png",
+            "type" : "image/png",
+            "sizes" : "96x96"
+        },
+        {
+            "src" : "img/icons/ExplitLogo-128x128-01.png",
+            "type" : "image/png",
+            "sizes" : "128x128"
+        },
+        {
+            "src" : "img/icons/ExplitLogo-144x144-01.png",
+            "type" : "image/png",
+            "sizes" : "144x144"
+        },
+        {
+            "src" : "img/icons/ExplitLogo-152x152-01.png",
+            "type" : "image/png",
+            "sizes" : "152x152"
+        },
+        {
+            "src" : "img/icons/ExplitLogo-192x192-01.png",
+            "type" : "image/png",
+            "sizes" : "192x192"
+        },
+        {
+            "src" : "img/icons/ExplitLogo-384x384-01.png",
+            "type" : "image/png",
+            "sizes" : "384x384"
+        },
+        {
+            "src" : "img/icons/ExplitLogo-512x512-01.png",
+            "type" : "image/png",
+            "sizes" : "512x512"
+        }
+    ]   
+}

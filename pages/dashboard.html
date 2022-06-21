@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Explit</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../img/icons/favicon.png" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <!-- PWA -->
+    <link rel="manifest" href="../manifest.json">
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="../img/Exsplit001.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#FFE1C4">
+    <style>
+        .nav .nav-pill .nav-link .active {
+            background-color: #135017;
+        }
+
+        .li-group .list-group-item :hover {
+
+            background-color: #135017
+        }
+    </style>
+
+</head>
+
+<body class="d-flex flex-column h-100">
+    <div id="map" style="display: none;"></div>
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#135017 ;" id="navBarMenu">
+           
+        </nav>
+
+        <!-- Page Content-->
+        <section class="" id="features">
+            <div class="container-sm">
+                <div class="row gx-5 ">
+                    <div class="col-md-3 p-3">
+                        <!--<div class="d-flex justify-content-center text-start">-->
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                            aria-orientation="vertical">
+                            <button class="nav-link text-start active " id="v-pills-dash-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-dash" type="button" role="tab" aria-controls="v-pills-dash"
+                                aria-selected="true">
+                                <i class="fa-solid fa-gauge"></i> Dashboard
+                            </button>
+                            <button class="nav-link text-start" id="v-pills-exp-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-exp" type="button" role="tab" aria-controls="v-pills-exp"
+                                aria-selected="false">
+                                <i class="fa-solid fa-list"></i> All expenses
+                            </button>
+                            <br>
+                        </div><br>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-uppercase">
+                                <div class="d-flex bd-highlight">
+                                    <div class="p-2 flex-fill bd-highlight">groups</div>
+                                    <div class="p-2 flex-fill bd-highlight"></div>
+                                    <div class="p-2 flex-fill bd-highlight">
+                                        <a href="../pages/groups.html"
+                                            class="text-lowercase justify-content-end "
+                                            style="text-decoration: none;font-size: 14px; color: #135017;">+ add</a>
+                                    </div>
+                                </div>
+                                <div class="d-flex bd-highlight">
+                                    <div class="p-2 flex-fill bd-highlight">
+                                        <a data-bs-toggle="collapse" href="#showGroups" role="button"
+                                        aria-expanded="false" aria-controls="collapseExample" class="text-muted"
+                                        style="font-size: 11px;text-decoration: none;" onclick="getUserGroups()">
+                                        Show ALL Groups</a>
+                                    </div>
+                                    <div class="p-2 flex-fill bd-highlight"></div>
+                                    <div class="p-2 flex-fill bd-highlight"> </div>
+                                </div>
+                                 <div class="collapse" id="showGroups">
+                                    <ul class="list-group list-group-flush" style="font-size: 12px;" id="groupList">
+
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="list-group-item text-uppercase">
+                                <div class="d-flex bd-highlight">
+                                    <div class="p-2 flex-fill bd-highlight">friends</div>
+                                    <div class="p-2 flex-fill bd-highlight"></div>
+                                    <div class="p-2 flex-fill bd-highlight">
+                                        <a href="../pages/groups.html" class="text-lowercase"
+                                        style="text-decoration: none;font-size: 14px; color: #135017;"
+                                        data-bs-toggle="modal" data-bs-target="#addFriends">+ add</a>
+                                    </div>
+                                </div>
+                                <div class="d-flex bd-highlight">
+                                    <div class="p-2 flex-fill bd-highlight">
+                                        <a data-bs-toggle="collapse" href="#showFriends" role="button" aria-expanded="false"
+                                    aria-controls="collapseExample" class="text-muted"
+                                    style="font-size: 11px;text-decoration: none;" onclick="getFriends()">
+                                    Show ALL Friends</a>
+                                    </div>
+                                    <div class="p-2 flex-fill bd-highlight"></div>
+                                    <div class="p-2 flex-fill bd-highlight"> </div>
+                                </div>
+                                <div class="collapse" id="showFriends">
+                                    <ul class="list-group list-group-flush" style="font-size: 12px;" id="friendList">
+
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+
+
+                    </div>
+                    <div class="col-md-8 shadow-sm rounded bg-body border mt-1 p-3">
+                        <div class="row">
+                            <div class="col">
+                                <div class="tab-content" id="v-pills-tabContent">
+                                    <!--DashBoard Tab Begins-->
+                                    <div class="tab-pane fade show active" id="v-pills-dash" role="tabpanel"
+                                        aria-labelledby="v-pills-dash-tab">
+                                        <div class="container">
+                                            <div class="row gx-5 pt-3">
+                                                <div class="col-lg-6 ml-xl-2 d-flex align-items-start">
+                                                    <h2>Dashboard</h2>
+                                                </div>
+                                                <div class="col-lg-6 d-flex justify-content-end">
+                                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                        data-bs-target="#addExpense" onclick="setFriendList()">
+                                                        Add an Expense
+                                                    </button>&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#SettleUp">
+                                                        Settle Up
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <hr
+                                                style="height:2px; width:100%; border-width:0; color:rgb(13, 11, 11); background-color:rgb(10, 8, 8)">
+                                            <div class="row gx-5 m-3">
+                                                <div
+                                                    class="col-lg-6 mb-5 ml-xl-2 d-flex justify-content-center align-items-center">
+                                                    <img src="../img/Exsplit001.png" class="img-fluid" alt="">
+                                                </div>
+                                                <div class="col-lg-6 mb-5">
+                                                    <h3>
+                                                        Explit is pleased to welcome you!
+                                                    </h3><br>
+                                                    <p>
+                                                        Share expenses with your friends using Explit.</p>
+                                                    <p>
+                                                        Start by clicking <b>"Add an expense" </b>above, or invite some
+                                                        friends first!
+                                                    </p>
+                                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                        data-bs-target="#addFriends">
+                                                        <i class="fa-solid fa-user-plus"></i> Add friends on Explit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--DashBoard Tab Ends-->
+                                    <div class="tab-pane fade" id="v-pills-exp" role="tabpanel"
+                                        aria-labelledby="v-pills-exp-tab">...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Add Friends on Explit Modal -->
+        <div class="modal fade" id="addFriends" tabindex="-1" aria-labelledby="addFriends" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addFriends"><i class="fa-solid fa-user-plus"></i> Add Friends</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="friendName"
+                                    placeholder="Enter your Friends Name">
+                               
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" id="friendEmailAddress"
+                                    placeholder="Enter your Friends Email">
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" onclick="InviteFriends()">Send invites & Add
+                            Friends</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Expense on Explit Modal -->
+        <div class="modal fade" id="addExpense" tabindex="-1" aria-labelledby="addExpense" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addExpense"><i class="far fa-money-bill-alt"></i> Add an Expense
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-3">
+                        <form action="">
+                            <div class="row g-3 align-items-center p-3">
+                                <div class="col-auto">
+                                    <label for="inputPassword6" class="col-form-label"> With You and :</label>
+                                </div>
+                                <div class="col">
+                                         <select id="emailAddress_addExp" name="expDesListValue" class="form-select"
+                                            aria-label="Default select example" placeholder="your friends email" onchange="selectModal()">
+                                        </select>
+                                </div>
+                                <hr
+                                    style="height:2px; width:100%; border-width:0; color:rgb(13, 11, 11); background-color:rgb(10, 8, 8)">
+
+                                <div id="expBox" class="box" style="display: none;">
+                                    <div class="row mt-2">
+                                        <div class="col-md mt-2">
+                                            <p class="text-start fs-5"><b>Expense Category:</b></p>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="restaurant"
+                                                    id="restaurant" name="expense_category">
+                                                <label class="form-check-label" for="restaurant">
+                                                    <i class='fas fa-pizza-slice'></i> Restaurant
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="cafe" id="cafe"
+                                                    name="expense_category">
+                                                <label class="form-check-label" for="cafe">
+                                                    <i class='fas fa-coffee'></i> Cafe
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="lodging"
+                                                    id="lodging" name="expense_category">
+                                                <label class="form-check-label" for="lodging">
+                                                    <i class="fas fa-building"></i> Lodging
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="supermarket"
+                                                    id="supermarket" name="expense_category">
+                                                <label class="form-check-label" for="supermarket">
+                                                    <i class="fas fa-shopping-cart"></i> Supermarket
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input " type="radio" value="others" id="others"
+                                                    checked name="expense_category">
+                                                <label class="form-check-label" for="others">
+                                                    <i class='fas fa-question-circle'></i> Others
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="row mt-2">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Enter a description" id="expDes">
+                                                <!-- to display data from google nearby api -->
+                                                <select id="nearbyPlaces" name="expDesListValue" class="form-select"
+                                                    aria-label="Default select example" style="display: none;">
+                                                </select>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-md">
+                                                    <select id="currency" name="currency" class="form-select"
+                                                        aria-label="Default select example" onchange="currencyUpdate()">
+                                                        <option value="EUR" selected>EUR</option>
+                                                        <option value="ISK">ISK</option>
+                                                        <option value="INR">INR</option>
+                                                        <option value="IDR">IDR</option>
+                                                        <option value="IRR">IRR</option>
+                                                        <option value="IQD">IQD</option>
+                                                        <option value="KWD">KWD</option>
+                                                        <option value="LBP">LBP</option>
+                                                        <option value="OMR">OMR</option>
+                                                        <option value="PLN">PLN</option>
+                                                        <option value="QAR">QAR</option>
+                                                        <option value="SAR">SAR</option>
+                                                        <option value="RSD">RSD</option>
+                                                        <option value="SOS">SOS</option>
+                                                        <option value="ZAR">ZAR</option>
+                                                        <option value="KRW">KRW</option>
+                                                        <option value="SHP">SHP</option>
+                                                        <option value="UGX">UGX</option>
+                                                        <option value="UAH">UAH</option>
+                                                        <option value="AED">AED</option>
+                                                        <option value="USD">USD</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md">
+                                                    <input type="number" class="form-control" id="amount" placeholder="0.00" onchange="currencyUpdate">
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                paid by <select class="form-select" aria-label="Default select example" id="paidBy"></select>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <select class="form-select" aria-label="Default select example" id="splitType" onchange="splitTypeChanged()">
+                                                    <option selected disabled type="none"> Pick a splitting type </option>
+                                                    <option value="equal" type="eq">Equaliy</option>
+                                                    <option value="exact_amount"  type="exact">Exact Amount</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="row mt-2" id="splitValue">
+                                                <div id="splitEqualMsg"></div>
+                                                <div id="splitByAmount"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success">Add Expense</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settle Up  Explit Modal -->
+        <div class="modal fade" id="SettleUp" tabindex="-1" aria-labelledby="SettleUp" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addFriends"><i class="fa-solid fa-money-bills"></i></i> Settle Up
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container mt-3">
+                            <div class="row  d-flex justify-content-center">
+                                <div class="col">
+                                    <h4 class="text-center"> Choose a payemnt method </h4>
+                                </div>
+                            </div> <br>
+                            <div class="row mt-2 d-flex justify-content-center ">
+                                <button type="button" class="btn btn-warning fs-4" style="width: 65%;">Record a cash
+                                    payment</button>
+                            </div><br>
+                            
+                            <hr>
+                            <div class="row mt-2 mb-2 d-flex justify-content-center">
+                                <p class="text-center text-muted">
+                                    <small style="font-size: 10px;">
+                                        When you use a payment service, your payment is shared with that company under
+                                        its Privacy Policy and Terms, including any fees if applicable. Splitwise
+                                        charges no additional fees.
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+    <!-- Footer-->
+    <footer class="py-4 mt-auto" style="background-color:#135017 ;">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto">
+                    <div class="small m-0 text-white">Copyright &copy; Explit 2022</div>
+                </div>
+                <div class="col-auto">
+                    <a class="link-light small" href="../pages/contact.html">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../js/scripts.js"></script>
+    <!-- SW  JS-->
+    <script src="../js/app.js"></script>
+    <script src="../js/location.js"></script>
+    <!-- Core Fontawesome Icons -->
+    <script src="https://kit.fontawesome.com/74f61f850b.js" crossorigin="anonymous"></script>
+
+
+    <script>
+        let inputBox = document.querySelector('.inputBox')
+
+        // inputBox.addEventListener('input', function () {
+        //     document.querySelector('.box').style.display
+        //         = "block";
+        // });
+
+
+        function myFunction() {
+            var x = document.createElement("LI");
+            var t = document.createTextNode("Coffee");
+            x.appendChild(t);
+            document.getElementById("groupList").appendChild(x);
+        }
+
+
+        window.onload = function() {
+            isLoggedIn();
+            getUserGroups();
+            getFriends();
+            getUserInfo();
+            getSessionName();
+            
+        };
+    </script>
+
+
+    </script>
+</body>
+
+</html>
